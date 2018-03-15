@@ -1,0 +1,6 @@
+framework module RTRootNavigationController_Swift {
+  umbrella header "RTRootNavigationController_Swift-umbrella.h"
+
+  export *
+  module * { export * }
+}

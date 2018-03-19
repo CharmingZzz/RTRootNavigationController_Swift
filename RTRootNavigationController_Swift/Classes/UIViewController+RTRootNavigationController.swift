@@ -9,8 +9,16 @@ import UIKit
 
 private var disableInteractivePopKey: String = "disableInteractivePop"
 
-public extension UIViewController {
+protocol RTNavigationItemCustomizable {
     
+    func rt_customBackItemWithTarget(target: Any, action: Selector) ->UIBarButtonItem?
+    
+}
+
+// TODO:  handel access control problems
+
+extension UIViewController: RTNavigationItemCustomizable{
+  
     var rt_disableInteractivePop: Bool {
         
         set{
@@ -35,4 +43,5 @@ public extension UIViewController {
         return nil
     }
     
+    public func rt_customBackItemWithTarget(target: Any, action: Selector) -> UIBarButtonItem? {return nil}
 }

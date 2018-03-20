@@ -132,22 +132,6 @@ open class RTContainerController: UIViewController {
         return self.contentViewController
     }
     
-    open override func rotatingFooterView() -> UIView? {
-        guard #available(iOS 8.0, *) else{
-            let footerView = self.contentViewController?.rotatingFooterView()
-            return footerView
-        }
-        return nil
-    }
-    
-    open override func rotatingHeaderView() -> UIView? {
-        guard #available(iOS 8.0, *) else{
-            let headerView = self.contentViewController?.rotatingHeaderView()
-            return headerView
-        }
-        return nil
-    }
-    
     
     open override func forUnwindSegueAction(_ action: Selector, from fromViewController: UIViewController, withSender sender: Any?) -> UIViewController? {
         guard #available(iOS 9.0, *) else{
@@ -513,21 +497,6 @@ open class RTRootNavigationController: UINavigationController {
         return (self.topViewController?.preferredInterfaceOrientationForPresentation)!
     }
     
-    open override func rotatingFooterView() -> UIView? {
-        guard #available(iOS 8.0, *) else{
-            let footerView = self.topViewController?.rotatingFooterView()
-            return footerView
-        }
-        return nil
-    }
-    
-    open override func rotatingHeaderView() -> UIView? {
-        guard #available(iOS 8.0, *) else{
-            let headerView = self.topViewController?.rotatingHeaderView()
-            return headerView
-        }
-        return nil
-    }
     
     open override func responds(to aSelector: Selector!) -> Bool {
         if super.responds(to: aSelector){

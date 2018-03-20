@@ -579,45 +579,33 @@ open class RTRootNavigationController: UINavigationController {
     }
     
     func pushViewController(viewController: UIViewController, animated: Bool,complete: @escaping (Bool)->Swift.Void){
-        if self.animationComplete != nil{
-            self.animationComplete!(false)
-        }
+        self.animationComplete?(false)
         self.animationComplete = complete
         self.pushViewController(viewController, animated: animated)
     }
     
     func popViewController(animated: Bool, complete: @escaping (Bool)->Swift.Void) ->UIViewController? {
-        
-        if self.animationComplete != nil{
-            self.animationComplete!(false)
-        }
+        self.animationComplete?(false)
         self.animationComplete = complete
         
         let vc = self.popViewController(animated: animated)
         
-        if vc != nil {
-            if self.animationComplete != nil{
-                self.animationComplete!(true)
-                self.animationComplete = nil
-            }
-        }
+        self.animationComplete?(true)
+        self.animationComplete = nil
+        
         return vc
     }
     
     func popToViewController(viewController: UIViewController,animated: Bool,complete: @escaping (Bool)->Swift.Void) ->[UIViewController]?{
         
-        if self.animationComplete != nil{
-            self.animationComplete!(false)
-        }
+        self.animationComplete?(false)
         self.animationComplete = complete
         
         let vcs = self.popToViewController(viewController, animated: animated)
         
         if let count = vcs?.count,count > 0 {
-            if self.animationComplete != nil{
-                self.animationComplete!(true)
-                self.animationComplete = nil
-            }
+            self.animationComplete?(true)
+            self.animationComplete = nil
         }
         return vcs
     }
@@ -625,18 +613,14 @@ open class RTRootNavigationController: UINavigationController {
     
     func popToRootViewController(animated: Bool,complete: @escaping (Bool)->Swift.Void) ->[UIViewController]? {
         
-        if self.animationComplete != nil{
-            self.animationComplete!(false)
-        }
+        self.animationComplete?(false)
         self.animationComplete = complete
         
         let vcs = self.popToRootViewController(animated: animated)
         
         if let count = vcs?.count,count > 0 {
-            if self.animationComplete != nil{
-                self.animationComplete!(true)
-                self.animationComplete = nil
-            }
+            self.animationComplete?(true)
+            self.animationComplete = nil
         }
         return vcs
     }
@@ -644,7 +628,7 @@ open class RTRootNavigationController: UINavigationController {
 
 extension RTRootNavigationController: UINavigationControllerDelegate,UIGestureRecognizerDelegate{
     
-    fileprivate func onBack(sender: Any) {
+    @objc fileprivate func onBack(sender: Any) {
         _ = self.popViewController(animated: true)
     }
     
@@ -670,11 +654,11 @@ extension RTRootNavigationController: UINavigationControllerDelegate,UIGestureRe
             
             if !self.useSystemBackBarButtonItem && !hasSetLeftItem {
                 
-                if unwrapVC.responds(to: Selector(("rt_customBackItemWithTarge:action:"))) {
+                if unwrapVC.responds(to: #selector(unwrapVC.rt_customBackItemWithTarget(target:action:))) {
                     unwrapVC.navigationItem.leftBarButtonItem = unwrapVC.rt_customBackItemWithTarget(target: self, action: Selector(("onBack:")))
                 }else {
                     unwrapVC.navigationItem.leftBarButtonItem = UIBarButtonItem(title:NSLocalizedString("Back", comment: ""),style:.plain,target:self,
-                        action:Selector(("onBack:")))
+                                                                                action:Selector(("onBack:")))
                 }
             }
         }
@@ -697,10 +681,8 @@ extension RTRootNavigationController: UINavigationControllerDelegate,UIGestureRe
         
         RTRootNavigationController.attemptRotationToDeviceOrientation()
         
-        if self.animationComplete != nil {
-            self.animationComplete!(true)
-            self.animationComplete = nil
-        }
+        self.animationComplete?(true)
+        self.animationComplete = nil
         
         self.rt_delegate?.navigationController?(navigationController, didShow: viewController, animated: animated)
     }

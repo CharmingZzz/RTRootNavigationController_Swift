@@ -9,9 +9,9 @@ import UIKit
 
 private var disableInteractivePopKey: String = "disableInteractivePop"
 
-protocol RTNavigationItemCustomizable {
+@objc public protocol RTNavigationItemCustomizable {
     
-    func rt_customBackItemWithTarget(target: Any, action: Selector) ->UIBarButtonItem?
+   @objc optional func rt_customBackItemWithTarget(target: Any, action: Selector) ->UIBarButtonItem?
     
 }
 
@@ -19,7 +19,7 @@ protocol RTNavigationItemCustomizable {
 
 extension UIViewController: RTNavigationItemCustomizable{
   
-    var rt_disableInteractivePop: Bool {
+     public var rt_disableInteractivePop: Bool {
         
         set{
             objc_setAssociatedObject(self, &disableInteractivePopKey, newValue, .OBJC_ASSOCIATION_ASSIGN)
@@ -31,7 +31,7 @@ extension UIViewController: RTNavigationItemCustomizable{
 
     }
     
-    var rt_navigationController: RTRootNavigationController? {
+    public var rt_navigationController: RTRootNavigationController? {
         var vc: UIViewController? = self
         while vc != nil && !(vc is RTRootNavigationController) {
             vc = vc?.navigationController
@@ -39,9 +39,9 @@ extension UIViewController: RTNavigationItemCustomizable{
         return vc as? RTRootNavigationController
     }
     
-    func rt_navigationBarClass() -> Swift.AnyClass? {
+    open func rt_navigationBarClass() -> Swift.AnyClass? {
         return nil
     }
     
-    public func rt_customBackItemWithTarget(target: Any, action: Selector) -> UIBarButtonItem? {return nil}
+    open func rt_customBackItemWithTarget(target: Any, action: Selector) -> UIBarButtonItem? {return nil}
 }

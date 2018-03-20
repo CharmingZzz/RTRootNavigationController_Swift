@@ -9,20 +9,19 @@
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
-## Requirements
-
 ## Installation
 
 RTRootNavigationController_Swift is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
+source 'https://github.com/CharmingZzz/IndividualSpecs.git'
 pod 'RTRootNavigationController_Swift'
 ```
 
 ## Author
 
-m17600026862@163.com, 17600026862@163.com
+m17600026862@163.com, xujie
 
 ## License
 

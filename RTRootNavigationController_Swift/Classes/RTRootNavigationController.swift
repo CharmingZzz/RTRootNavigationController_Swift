@@ -190,6 +190,10 @@ open class RTContainerNavigationController: UINavigationController {
         super.init(navigationBarClass: navigationBarClass, toolbarClass: toolbarClass)
     }
     
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -353,7 +357,7 @@ open class RTRootNavigationController: UINavigationController {
             self.rt_delegate = delegate
         }
         get {
-            return self.delegate
+            return self.rt_delegate
         }
     }
     
@@ -375,6 +379,10 @@ open class RTRootNavigationController: UINavigationController {
     public override init(rootViewController: UIViewController) {
         super.init(rootViewController: rootViewController)
         self.commonInit()
+    }
+    
+    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
     init(rootViewControllerNoWrapping: UIViewController) {
